@@ -15,7 +15,7 @@ void setup() {
     while(1);//SI NO ENCUENTRA EL MODULO SE CREA UN BUCLE INF, DETENIENDO LA EJECUCION
     }
     
-  rtc.adjust(DateTime(__DATE__,__TIME__));//ESTABLECE LA HORA DEL RTC, SOLO CARGARLO UNA VEZ
+  //rtc.adjust(DateTime(__DATE__,__TIME__));//ESTABLECE LA HORA DEL RTC, SOLO CARGARLO UNA VEZ
   
   for(int i=0;i<12;i++){
   pinMode(led[i], OUTPUT);   // ESTABLECER PIN DE SALIDA PRINCIPAL
@@ -23,13 +23,14 @@ void setup() {
     pinMode(ledM[i], OUTPUT);   // ESTABLECER PIN DE SALIDA MINUTOS
     }
   }
+  
   hor = (rtc.now().hour()%12);
   mit = (rtc.now().minute());
   seg = (rtc.now().second());
+  
 }
 
 void loop() {
-    
 
     Serial.print(hor,DEC); // A§o
     Serial.print(':');
@@ -40,8 +41,10 @@ void loop() {
     
     digitalWrite(led[hor],HIGH);
     digitalWrite(led[mit/5],HIGH);
-    digitalWrite(led[seg%12],HIGH);
-    
+
+    delay(500);
+    digitalWrite(led[mit/5],LOW);
+    delay(500);
     if(mit%5 !=0 || mit == 0){//PARA ENCENDER LOS LED DE MINUTOS
       analogWrite(ledM[mit%5],250);
       if(mit>0){
@@ -55,9 +58,6 @@ void loop() {
       }
     }
     
-    delay(1000);
-    digitalWrite(led[seg%12],LOW);
-    
     if(mit==60){
       digitalWrite(led[hor],LOW);
       hor++;
@@ -68,5 +68,6 @@ void loop() {
       mit++;
       seg=0;
     }
+    
     seg++;
 }
