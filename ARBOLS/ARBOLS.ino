@@ -1,4 +1,4 @@
-int ledPins[] = {6,9,10,11};
+int ledPins[] = {2,3,4,5,6,7,8,9,10,11};
 
 void secuencial();
 void gradual_descendente(int repeticiones, int velocidad);
@@ -13,10 +13,9 @@ void todo(int repeticiones, int velocidad);
 void setup() {
   Serial.begin(9600); 
   randomSeed(analogRead(0));
-  pinMode(ledPins[0], OUTPUT);   // sets ledPins as output
-  pinMode(ledPins[1], OUTPUT);
-  pinMode(ledPins[2], OUTPUT);
-  pinMode(ledPins[3], OUTPUT);
+  for(int i =0;i<9;i++){
+    pinMode(ledPins[i], OUTPUT);   // sets ledPins as output
+  }
 }
 
 void loop() {
@@ -32,56 +31,31 @@ void loop() {
 }
 
 void secuencial(){
-  analogWrite(ledPins[0],100);
-  delay(200);
-  analogWrite(ledPins[1],150);
-  delay(200);
-  analogWrite(ledPins[2],200);
-  delay(200);
-  analogWrite(ledPins[3],250);
-  delay(200);
-  analogWrite(ledPins[0],10);
-  analogWrite(ledPins[1],10);
-  analogWrite(ledPins[2],10);
-  analogWrite(ledPins[3],10);
+  int j = 100;
+  for(int i =0;i<9;i++){
+    analogWrite(ledPins[i],100);
+    j = j+(i*16);
+    delay(200);
+  }
+ for(int i =0;i<9;i++){
+    analogWrite(ledPins[i],10);
+  }
   delay(300);
 }
 
 void gradual(int repeticiones, int velocidad){
+  int j = 0;
   for(int m=1; m<=repeticiones;m++){
-      analogWrite(ledPins[0], 255);
-  
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[1], i);
-      analogWrite(ledPins[0],255-i);
-      delay(velocidad);
-    }
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[2], i);
-      analogWrite(ledPins[1],255-i);
-      delay(velocidad);
-    }
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[3], i);
-      analogWrite(ledPins[2],255-i);
-      delay(velocidad);
-    }
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[2], i);
-      analogWrite(ledPins[3],255-i);
-      delay(velocidad);
-    }
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[1], i);
-      analogWrite(ledPins[2],255-i);
-      delay(velocidad);
-    }
-    for (int i=0; i<=255; i++){
-      analogWrite(ledPins[0], i);
-      analogWrite(ledPins[1],255-i);
-      delay(velocidad);
-    }
-  }
+      analogWrite(ledPins[j], 255);
+      j=j+1;
+      for(j;j<9;j++){
+        for (int i=0; i<=255; i++){
+        analogWrite(ledPins[j], i);
+        analogWrite(ledPins[j-1],255-i);
+        delay(velocidad);
+        }
+      }
+   }
 }
 
 void gradual_descendente(int repeticiones, int velocidad){

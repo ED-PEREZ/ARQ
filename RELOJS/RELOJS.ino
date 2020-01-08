@@ -12,22 +12,24 @@ void setup() {
   
   if(!rtc.begin()){//SI EL MODULO RTC ESTA EN EL HW
     Serial.print("MODULO RTC NO ENCONRADO :-(");
-    while(1);//SI NO ENCUENTRA EL MODULO SE CREA UN BUCLE INF, DETENIENDO LA EJECUCION
-    }
+    hor = 1;
+    mit = 1;
+    seg = 1;
+    }else{
+      
+    //rtc.adjust(DateTime(__DATE__,__TIME__));//ESTABLECE LA HORA DEL RTC, SOLO CARGARLO UNA VEZ
     
-  //rtc.adjust(DateTime(__DATE__,__TIME__));//ESTABLECE LA HORA DEL RTC, SOLO CARGARLO UNA VEZ
-  
-  for(int i=0;i<12;i++){
-  pinMode(led[i], OUTPUT);   // ESTABLECER PIN DE SALIDA PRINCIPAL
-  if(i<5){
-    pinMode(ledM[i], OUTPUT);   // ESTABLECER PIN DE SALIDA MINUTOS
+    hor = (rtc.now().hour()%12);
+    mit = (rtc.now().minute());
+    seg = (rtc.now().second());
     }
-  }
-  
-  hor = (rtc.now().hour()%12);
-  mit = (rtc.now().minute());
-  seg = (rtc.now().second());
-  
+
+    for(int i=0;i<12;i++){
+      pinMode(led[i], OUTPUT);   // ESTABLECER PIN DE SALIDA PRINCIPAL
+      if(i<5){
+        pinMode(ledM[i], OUTPUT);   // ESTABLECER PIN DE SALIDA MINUTOS
+      }
+    }
 }
 
 void loop() {
