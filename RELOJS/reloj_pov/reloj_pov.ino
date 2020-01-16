@@ -1,5 +1,5 @@
-#include <Wire.h>   // incluye libreria para interfaz I2C
-#include <RTClib.h>   // incluye libreria para el manejo del modulo RTC
+#include <Wire.h>
+#include <RTClib.h>   // incluye libreria del modulo RTC
 
 RTC_DS3231 rtc;     // crea objeto del tipo RTC_DS3231
 
@@ -18,15 +18,16 @@ int brillo = 25;    // define brillo agujas
 int brilloc = 10;  // define brillo cuadrante
 int boton = 13;    // define pin sensor
 int tiempo = 0;
+
 // establecer sugundos, minutos y hora de inicio.
 int segundos = 0;
 int minutos = 0;
 int hora = 0;
-///////////////////
+
 int cuad = 1;
 
 
-int sep = 900;   // espacio entre puntos cuadrante
+int sep = 900;   //espacio entre puntos cuadrante
 
 
 //Configuracion Pines
@@ -36,7 +37,7 @@ void setup ()
 
   if (!rtc.begin()) {       // si falla la inicializacion del modulo
     Serial.println("Modulo RTC no encontrado !");  // muestra mensaje de error
-    segundos = 1;
+    segundos = 1;   //establece los mi
     minutos = 1;
     hora = 1;
   } else {
@@ -2293,7 +2294,7 @@ void loop ()
       digitalWrite(led2, LOW);
     }
     delayMicroseconds (sep);
-    //////55
+    
     if ( cuad == 1 ) {
       digitalWrite(led10 , HIGH);
       delayMicroseconds(brilloc);
@@ -2373,7 +2374,7 @@ void loop ()
       digitalWrite(led2, LOW);
     }
     delayMicroseconds (sep);
-    //////57
+
     if ( cuad == 57 ) {
       digitalWrite(led10 , HIGH);
       delayMicroseconds(brilloc);
@@ -2413,7 +2414,7 @@ void loop ()
       digitalWrite(led2, LOW);
     }
     delayMicroseconds (sep);
-    //////58
+
     if ( cuad == 58 ) {
       digitalWrite(led10 , HIGH);
       delayMicroseconds(brilloc);
@@ -2493,10 +2494,5 @@ void loop ()
       digitalWrite(led2, LOW);
     }
     delayMicroseconds (sep);
-
-    //////////////FFFF///////////////
-
-
-
   }
 }
